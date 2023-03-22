@@ -43,7 +43,7 @@
   </ng-container>
   <ng-container *ngIf="segment == 'settings'">
     <div class="preview">
-      <ion-avatar (click)="changeImage()">
+      <ion-avatar class="avatar" (click)="changeImage()">
         <img *ngIf="profile?.photo; else placheolder_avatar;" [src]="profile.photo" />
         <ng-template #placheolder_avatar>
           <div class="fallback">
@@ -52,22 +52,12 @@
         </ng-template>
       </ion-avatar>
     </div>
-    <div align="right" class="image">
-        <ion-fab vertical="top" horizontal="right">
-          <ion-fab-button (click)="takePicture()">
-            <ion-icon color="white" name="create-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
-        <ion-avatar>
-          <!-- <img [src]="selectedImage ? selectedImage.webPath : 'assets/imgs/user.png'" /> -->
-          <img [src]="selectedImage ? selectedImage : 'assets/icon/favicon.png'" />
-        </ion-avatar>
-      </div>
+    
   </ng-container>
 
   <ng-container *ngIf="segment == 'status'">
     <div>
-      hola mundo 2
+      hola mundo 4
     </div>
   </ng-container>
 

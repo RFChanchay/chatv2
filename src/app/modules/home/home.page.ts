@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-//import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ActionSheetController, AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
 import { Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import {UserService} from'src/app/services/user/user.service';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+//import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Capacitor } from '@capacitor/core';
 
 @Component({
@@ -31,11 +31,11 @@ export class HomePage implements OnInit {
     private authService:AuthService,
     private chatService:ChatService,
     private userService:UserService,
-    //private loadingController: LoadingController,
-		//private alertController: AlertController,
-    //private camera:Camera
-    private camera: Camera,
-    private actionSheetController: ActionSheetController
+    private loadingController: LoadingController,
+		private alertController: AlertController,
+    //private camera:Camera,
+    //private camera: Camera,
+    //private actionSheetController: ActionSheetController
   ) { 
     this.userService.getUserProfile().subscribe((data) => {
 			this.profile = data;
@@ -113,7 +113,7 @@ export class HomePage implements OnInit {
     return user;
   }
   
-  /*async changeImage() {
+  async changeImage() {
 		const image = await Camera.getPhoto({
 			quality: 90,
 			allowEditing: false,
@@ -137,9 +137,9 @@ export class HomePage implements OnInit {
 				await alert.present();
 			}
 		}
-	}*/
+	}
 
-  changeImage(){}
+  /*changeImage(){}
   checkPlatformForWeb() {
     if(Capacitor.getPlatform() == 'web') return true; // isPlatform('web')
     return false;
@@ -217,6 +217,6 @@ export class HomePage implements OnInit {
     // this.selectedImage = await this.file.readAsDataURL(path, filename);
     // // this.selectedImage = image;
     this.selectedImage = (<any>window).Ionic.WebView.convertFileSrc(image);
-  }
+  }*/
 
 }
