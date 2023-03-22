@@ -1,11 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { ActionSheetController, AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
 import { Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import {UserService} from'src/app/services/user/user.service';
+import { PushNotifications } from '@capacitor/push-notifications';
+/*import {
+  ActionPerformed,
+  PushNotificationSchema,
+  PushNotifications,
+  Token,
+} from '@capacitor/push-notifications';*/
 //import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Capacitor } from '@capacitor/core';
 
@@ -24,6 +31,7 @@ export class HomePage implements OnInit {
   chatRooms : Observable<any[]>;
   profile = null;
   selectedImage: any;
+  token:string='';
 
 
   constructor(
@@ -44,6 +52,16 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getRooms();
+    PushNotifications.addListener("registration",
+      (token)=>{
+        this.token=token.value;
+      }
+    )
+    PushNotifications.addListener("pushNotificationReceived",(notification)=>{
+      alert(JSON.stringify(notification));
+    })
+    PushNotifications.register();
+    
   }
 
   getRooms(){
@@ -58,7 +76,7 @@ export class HomePage implements OnInit {
   }
   async logout(){
     await this.authService.logout();
-    this.popover.dismiss();
+    //this.popover.dismiss();
     this.router.navigateByUrl('/login');
   }
   newChat(){

@@ -1,22 +1,19 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Chats</ion-title>
+    
+      <ion-title *ngIf="segment == 'chats'">Chats</ion-title>
+   
+      <ion-title *ngIf="segment == 'status'">Posts</ion-title>
+    
+      <ion-title *ngIf="segment == 'settings'">Settings</ion-title>
+    
+    
     <ion-buttons slot="end">
-      <ion-button fill="clear" id="popover">
-        <ion-icon slot="icon-only" name="ellipsis-vertical-outline"></ion-icon>
-      </ion-button>
-      <ion-icon name="add-circle" (click)="newChat()"></ion-icon>
+      
+      <ion-icon *ngIf="segment == 'chats'" name="add-circle" (click)="newChat()"></ion-icon>
     </ion-buttons>
     
-    <ion-popover #popover trigger="popover" triggerAction="click">
-      <ng-template>
-        <ion-content class="ion-padding ion-text-center" (click)="logout()">
-          <ion-label color="danger">
-            LOGOUT
-          </ion-label>
-        </ion-content>
-      </ng-template>
-    </ion-popover>
+    
   </ion-toolbar>
   
 </ion-header>
@@ -43,22 +40,107 @@
   </ng-container>
   <ng-container *ngIf="segment == 'settings'">
     <div class="preview">
-      <ion-avatar class="avatar" (click)="changeImage()">
-        <img *ngIf="profile?.photo; else placheolder_avatar;" [src]="profile.photo" />
-        <ng-template #placheolder_avatar>
-          <div class="fallback">
-            <p>Select avatar</p>
-          </div>
-        </ng-template>
-      </ion-avatar>
+      <ion-list lines="full">
+        <ion-item>
+          <ion-avatar class="avatar" (click)="changeImage()">
+            <img *ngIf="profile?.photo; else placheolder_avatar;" [src]="profile.photo" />
+            <ng-template #placheolder_avatar>
+              <div class="fallback">
+                <p>Select avatar</p>
+              </div>
+            </ng-template>
+          </ion-avatar>
+          <ion-text class="profile-data">
+            <h3>{{profile.name}}</h3>
+            <i>{{profile.info}} </i>
+          </ion-text>
+        </ion-item>
+        <ion-item href="#">
+          <ion-icon name="at-circle" color="success"></ion-icon>
+          <ion-label>Editar Info</ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list class="full">
+        <ion-item href="#">
+          <ion-icon name="aperture" color="warnig"></ion-icon>
+          <ion-label>Full Lines</ion-label>
+        </ion-item>
+        <ion-item href="#">
+          <ion-icon name="camera" color="danger"></ion-icon>
+          <ion-label>Full Lines</ion-label>
+        </ion-item>
+        <ion-item href="#">
+          <ion-icon name="cloudy" color="success"></ion-icon>
+          <ion-label>Full Lines</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <ion-list class="full">
+        <ion-item href="#">
+          <ion-icon name="game-controller" color="warning"></ion-icon>
+          <ion-label>Full Lines</ion-label>
+        </ion-item>
+        <ion-item href="#">
+          <ion-icon name="images" color="success"></ion-icon>
+          <ion-label>Full Lines</ion-label>
+        </ion-item>
+        
+      </ion-list>
+
+      <ion-list class="full">
+        <ion-item (click)="logout()">
+          <ion-icon name="log-out" color="danger"></ion-icon>
+          <ion-label>Cerrar Sesión</ion-label>
+        </ion-item>
+      </ion-list>
+      
     </div>
     
   </ng-container>
 
   <ng-container *ngIf="segment == 'status'">
-    <div>
-      hola mundo 4
-    </div>
+    <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="assets/img/profile-pic.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>Título de la historia</h2>
+          <p>Subtítulo de la historia</p>
+        </ion-label>
+        <ion-button fill="clear" slot="end">Ver más</ion-button>
+      </ion-item>
+      
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="assets/img/profile-pic.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>Título de la historia</h2>
+          <p>Subtítulo de la historia</p>
+        </ion-label>
+        <ion-button fill="clear" slot="end">Ver más</ion-button>
+      </ion-item>
+      
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="assets/img/profile-pic.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>Título de la historia</h2>
+          <p>Subtítulo de la historia</p>
+        </ion-label>
+        <ion-button fill="clear" slot="end">Ver más</ion-button>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label>
+        Token:
+      </ion-label>
+      <ion-textarea  [(ngModel)]="token" rows="8">
+
+      </ion-textarea>
+    </ion-item>
   </ng-container>
 
 
@@ -92,9 +174,7 @@
   <ion-segment  [value]="segment"  (ionChange)="onSegmentChanged($event)">
     <ion-segment-button value="status">
       <ion-icon name="sync-circle-outline"></ion-icon>
-      <ion-label>Estados
-        
-      </ion-label>
+      <ion-label>Posts</ion-label>
     </ion-segment-button>
     <ion-segment-button value="chats">
       <ion-icon name="chatbubble-outline"></ion-icon>
@@ -102,7 +182,7 @@
     </ion-segment-button>
     <ion-segment-button value="settings">
       <ion-icon name="construct-outline"></ion-icon>
-      <ion-label>Configuracíon</ion-label>
+      <ion-label>Ajustes</ion-label>
     </ion-segment-button>
   </ion-segment>
 

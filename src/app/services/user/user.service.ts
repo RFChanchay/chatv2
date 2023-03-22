@@ -35,4 +35,16 @@ export class UserService {
 			return null;
 		}
 	}
+	async changeUserInfo(formValue){
+		const user=this.auth.currentUser;
+		try {
+			const userDocRef = doc(this.firestore, `users/${user.uid}`);
+			await updateDoc(userDocRef, {
+				info:formValue.info,
+				name:formValue.name,
+			});
+		} catch (e) {
+			return null;
+		}
+	}
 }
