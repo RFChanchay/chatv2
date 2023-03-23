@@ -3,9 +3,9 @@
     
       <ion-title *ngIf="segment == 'chats'">Chats</ion-title>
    
-      <ion-title *ngIf="segment == 'status'">Posts</ion-title>
+      <ion-title *ngIf="segment == 'notes'">Notas</ion-title>
     
-      <ion-title *ngIf="segment == 'settings'">Settings</ion-title>
+      <ion-title *ngIf="segment == 'settings'">Ajustes</ion-title>
     
     
     <ion-buttons slot="end">
@@ -18,7 +18,11 @@
   
 </ion-header>
 
+
+
+
 <ion-content>
+  <!--Chats-->
   <ng-container *ngIf="segment == 'chats' && (chatRooms|async) as rooms">
     <ion-list *ngIf="rooms?.length > 0" >
       <ion-item  *ngFor="let item of rooms" (click)="getChat(item)" [detail]="true">
@@ -38,6 +42,9 @@
       </ion-item>
     </ion-list>
   </ng-container>
+
+<!--Config-->
+
   <ng-container *ngIf="segment == 'settings'">
     <div class="preview">
       <ion-list lines="full">
@@ -55,7 +62,7 @@
             <i>{{profile.info}} </i>
           </ion-text>
         </ion-item>
-        <ion-item href="#">
+        <ion-item routerLink="edit">
           <ion-icon name="at-circle" color="success"></ion-icon>
           <ion-label>Editar Info</ion-label>
         </ion-item>
@@ -98,41 +105,24 @@
     
   </ng-container>
 
-  <ng-container *ngIf="segment == 'status'">
-    <ion-list>
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="assets/img/profile-pic.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>Título de la historia</h2>
-          <p>Subtítulo de la historia</p>
-        </ion-label>
-        <ion-button fill="clear" slot="end">Ver más</ion-button>
+<!--Notas-->
+
+<ng-container *ngIf="segment == 'notes' && usersNotes as notes">
+  <ion-list *ngIf="notes?.length > 0" >
+      <ion-item  *ngFor="let item of notes" [detail]="true">
+        
+          <ion-avatar slot="start">
+            <img src="/src/assets/icons/icon-128x128.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{item.user}}</h2>
+            <p>{{item.content}}</p>
+          </ion-label>
+          <ion-button fill="clear" slot="end">Ver más</ion-button>
+        
       </ion-item>
-      
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="assets/img/profile-pic.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>Título de la historia</h2>
-          <p>Subtítulo de la historia</p>
-        </ion-label>
-        <ion-button fill="clear" slot="end">Ver más</ion-button>
-      </ion-item>
-      
-      <ion-item>
-        <ion-avatar slot="start">
-          <img src="assets/img/profile-pic.png">
-        </ion-avatar>
-        <ion-label>
-          <h2>Título de la historia</h2>
-          <p>Subtítulo de la historia</p>
-        </ion-label>
-        <ion-button fill="clear" slot="end">Ver más</ion-button>
-      </ion-item>
-    </ion-list>
+  </ion-list>
+
     <ion-item>
       <ion-label>
         Token:
@@ -172,9 +162,9 @@
 
 <ion-footer >
   <ion-segment  [value]="segment"  (ionChange)="onSegmentChanged($event)">
-    <ion-segment-button value="status">
+    <ion-segment-button value="notes">
       <ion-icon name="sync-circle-outline"></ion-icon>
-      <ion-label>Posts</ion-label>
+      <ion-label>Notas</ion-label>
     </ion-segment-button>
     <ion-segment-button value="chats">
       <ion-icon name="chatbubble-outline"></ion-icon>

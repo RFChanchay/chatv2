@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, docData, Firestore, getDoc, getDocs, orderBy, OrderByDirection, query, setDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, docData, Firestore, getDoc, getDocs, orderBy, OrderByDirection, query, setDoc, where,updateDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +62,10 @@ export class ApiService {
     if(id) doc_data=docData<any>(dataRef,{idField:'id'});
     else doc_data=docData<any>(dataRef);
     return doc_data;
+  }
+  updateDataDoc(path, data){
+    const dataRef=this.docRef(path);
+    return updateDoc(dataRef,data);
   }
   
 

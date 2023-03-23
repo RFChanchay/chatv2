@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user/user.service';
@@ -11,17 +11,45 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./edit.page.scss'],
 })
 export class EditPage implements OnInit {
-  signupForm: FormGroup;
+  @ViewChild("inpName") inpName:ElementRef;
+  @ViewChild("inpInfo") inpInfo:ElementRef;
+
+  editForm: FormGroup;
+  profile = null;
 
   constructor(
     private router:Router,
     private userService:UserService,
     private alertController:AlertController
-  ) { }
+  ) { 
+    this.userService.getUserProfile().subscribe((data) => {
+			this.profile = data;
+      console.log(this.profile);
+
+		});
+  }
 
   ngOnInit() {
+    this.initForm();
   }
-  nada(){}
+  initForm() {
+    this.editForm = new FormGroup({
+      name: new FormControl('', 
+        {validators: [Validators.required]}
+      ),
+      info: new FormControl('', 
+        {validators: [Validators.required]}
+      ),
+    });
+  }
+  onSubmit() {
+    if(!this.editForm.valid){
+      this.showAlert("Complete TODOS los campos");
+      return;
+    } 
+    console.log(this.editForm.value);
+    this.changeUserData(this.editForm);
+  }
   changeUserData(form){
     this.userService.changeUserInfo(form.value).then((data:any)=>{
       console.log(data);

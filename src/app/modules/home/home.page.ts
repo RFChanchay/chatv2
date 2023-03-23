@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
-import { Observable, take } from 'rxjs';
+import { Observable, of, take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ChatService } from 'src/app/services/chat/chat.service';
 import {UserService} from'src/app/services/user/user.service';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { NotesService } from 'src/app/services/notes/notes.service';
 /*import {
   ActionPerformed,
   PushNotificationSchema,
@@ -14,7 +15,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
   Token,
 } from '@capacitor/push-notifications';*/
 //import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { Capacitor } from '@capacitor/core';
+
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,10 @@ export class HomePage implements OnInit {
   profile = null;
   selectedImage: any;
   token:string='';
+  usersNotes = [
+    { uid: 'xd', user: 'Randy',updatedAt:'17/11/2001',content:'pasen patas' },
+    { uid: 'xd', user: 'Randy2',updatedAt:'17/11/2001',content:'pasen patas' }
+  ];
 
 
   constructor(
@@ -41,17 +46,20 @@ export class HomePage implements OnInit {
     private userService:UserService,
     private loadingController: LoadingController,
 		private alertController: AlertController,
+    private userNotes:NotesService,
     //private camera:Camera,
     //private camera: Camera,
     //private actionSheetController: ActionSheetController
   ) { 
     this.userService.getUserProfile().subscribe((data) => {
 			this.profile = data;
+      //console.log(this.profile.uid);
 		});
   }
 
   ngOnInit() {
     this.getRooms();
+    
     PushNotifications.addListener("registration",
       (token)=>{
         this.token=token.value;
@@ -74,19 +82,34 @@ export class HomePage implements OnInit {
     console.log(event);
     this.segment=event.detail.value;
   }
-  async logout(){
-    await this.authService.logout();
-    //this.popover.dismiss();
-    this.router.navigateByUrl('/login');
+  async logout() {
+    try {
+      await this.authService.logout().then(() => {
+        // this.popover.dismiss();
+        this.segment='chats';
+        this.router.navigateByUrl('/login',{replaceUrl:true});
+        
+        console.log(this.authService._uid);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    
   }
   newChat(){
     this.open_new_chat = true;
+    this.userNotes.createUserNote('Prueba');
+    console.log('aaaaaa');
     if(!this.users) this.getUsers();
   }
 
   getUsers(){
     this.chatService.getUsers();
     this.users =this.chatService.users;
+    /*this.users.pipe(take(1)).subscribe(users => {
+      const newUsers = users.filter(user => user.uid !== this.profile.uid); // Crea un nuevo arreglo sin el elemento correspondiente
+      this.users = of(newUsers); // Asigna el nuevo arreglo a la propiedad
+    });*/
   }
 
   onWillDismiss(event: any) {}

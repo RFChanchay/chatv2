@@ -3,19 +3,19 @@
   <ion-toolbar>
     <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
     <ion-title>Editar</ion-title>
-    <ion-text slot="end" (click)="nada()" color="primary"><b>Listo</b></ion-text>
+    <ion-text slot="end" (click)="onSubmit()" color="primary"><b>Listo</b></ion-text>
 
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <form >
+    <form [formGroup]="editForm">
       <ion-item>
-        <ion-input value="xd" placeholder="Nombre Usuario: "></ion-input>
+        <ion-input id="inpName" formControlName="name"  placeholder="Nombre Usuario: "></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input  value="xd" placeholder="INFO"></ion-input>
+        <ion-input id="inpInfo" formControlName="info"  placeholder="INFO"></ion-input>
       </ion-item>
     </form>
     
