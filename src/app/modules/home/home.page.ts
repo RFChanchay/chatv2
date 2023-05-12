@@ -10,7 +10,7 @@ import {UserService} from'src/app/services/user/user.service';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { NotesService } from 'src/app/services/notes/notes.service';
 
-
+//
 
 @Component({
   selector: 'app-home',
