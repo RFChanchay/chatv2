@@ -1,9 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>note</ion-title>
+    <ion-back-button slot="start" defaultHref="/home"></ion-back-button>
+    <ion-title>Dejar una nota</ion-title>
+    <ion-text (click)="onSubmit()" slot="end"  color="primary"><b>Listo</b></ion-text>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="ion-text-center ion-padding-top">Otras cuentas pueden ver tu nota. No recibiran notificaciones cuando las
+    compartas. Recuerda solo tienes 60 caractéres.
+  </div>
+  <div style="text-align: center;"  >
+    <form [formGroup]="editForm" >
+      <input formControlName="theContent" type="text" autocomplete="off" name="text" class="input" placeholder="Escribe tu nota" maxlength="60">
+    </form>
+  </div>
+  
+  
 </ion-content>

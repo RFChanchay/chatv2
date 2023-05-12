@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Status de la Batería</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+
+  <ion-card color="success">
+    <ion-card-header>
+      <ion-card-title>{{btlvl}}</ion-card-title>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      Nivel de carga
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card color="warning">
+    <ion-card-header>
+      <ion-card-title>{{btstat}}</ion-card-title>
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+      Status
+    </ion-card-content>
+  </ion-card>
+  <ion-item>
+    <ion-label>Activa el pluggin</ion-label>
+    <ion-toggle #myToggle (ionChange)="checkToogle(myToggle.checked)"></ion-toggle>
+  </ion-item>
+
+
+</ion-content>

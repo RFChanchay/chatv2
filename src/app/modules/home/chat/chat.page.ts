@@ -56,7 +56,7 @@ export class ChatPage implements OnInit {
   }
   async sendMessage(){
     if(!this.message||this.message?.trim()==''){
-      //this.global.errorToast('Please enter a proper message',2000);
+      
       return;
     }
     try{
@@ -67,7 +67,7 @@ export class ChatPage implements OnInit {
       this.scrollToBottom();
     }catch(e){
       this.isLoading=false;
-      //this.global.errorToast();
+      
     }
   }
 

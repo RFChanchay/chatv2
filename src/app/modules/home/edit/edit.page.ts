@@ -66,7 +66,6 @@ export class EditPage implements OnInit {
   async showAlert(msg) {
     const alert = await this.alertController.create({
       header: 'Alert',
-      //subHeader: 'Important message',
       message: msg,
       buttons: ['OK'],
     });

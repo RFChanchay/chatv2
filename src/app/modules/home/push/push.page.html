@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Push</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>
+      Token:
+    </ion-label>
+    <ion-text rows="8">
+      {{token}}
+    </ion-text>
+  </ion-item>
+  <ion-button (click)="printToken()">Pulsame</ion-button>
+</ion-content>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of, switchMap } from 'rxjs';
+import {  Observable, of} from 'rxjs';
+import {  map,switchMap} from "rxjs/operators";
 import { ApiService } from '../api/api.service';
 import { AuthService } from '../auth/auth.service';
 

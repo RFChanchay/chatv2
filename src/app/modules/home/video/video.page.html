@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>video</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="width: 100%" id="divid">
+
+  </div><br>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="stopped">
+        <ion-button (click)="play()">Play</ion-button>
+      </ion-col>
+      <ion-col *ngIf="!stopped">
+        <ion-button (click)="stop()">Stop</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
